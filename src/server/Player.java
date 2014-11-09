@@ -40,6 +40,8 @@ public class Player extends Thread {
         matchRoom.assignKey(this);
         matchRoom.addPlayer(this);
         this.requestList = new HashMap<>();
+        System.out.println(socket.getRemoteSocketAddress().toString() +
+                " connected");
     }
 
     /**
@@ -70,7 +72,8 @@ public class Player extends Thread {
                             matchRoom.parse(this, array);
                             break;
                         case "name":
-                            if (length != 2 || array[1].equals("")) {
+                            if (length != 2 || array[1] == null ||
+                                    array[1].equals("")) {
                                 writeNotification(NotificationMessage.INVALID_NAME);
                             } else if (matchRoom.playerNameExists(array[1])) {
                                 writeNotification(NotificationMessage.NAME_TAKEN);
@@ -113,7 +116,8 @@ public class Player extends Thread {
                 matchRoom.removeWaitingPlayer(this);
             }
             matchRoom.removePlayer(this);
-            e.printStackTrace();
+            System.out.println(socket.getRemoteSocketAddress().toString() +
+                    " connected");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
