@@ -230,6 +230,10 @@ public class ClientView extends JFrame {
         return this.model;
     }
 
+    /**
+     * Displays dialog with game result.
+     * @param result game result.
+     */
     public void gameOverAction(String result) {
         Object[] options = {"Back to lobby", "Quit"};
         int n = JOptionPane.showOptionDialog(this,
