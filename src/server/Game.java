@@ -68,6 +68,14 @@ public class Game {
      * Sets the game in both players to null.
      */
     public void killGame() {
+        if (turnTimer != null) {
+            turnTimer.cancel();
+            turnTimer = null;
+        }
+        if (placementTimer != null) {
+            placementTimer.cancel();
+            placementTimer = null;
+        }
         player1.setGame(null);
         player2.setGame(null);
     }
