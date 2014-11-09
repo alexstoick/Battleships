@@ -16,7 +16,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by alexstoick on 10/15/14.
+ * Class for view of the client.
  */
 public class ClientView extends JFrame {
 
@@ -32,6 +32,12 @@ public class ClientView extends JFrame {
     private JLabel message;
     private Timer timer;
 
+    /**
+     * Constructs client view.
+     * @param out for requests to the server.
+     * @param in for responses from the server.
+     * @param matchRoom match room.
+     */
     public ClientView(ObjectOutputStream out, final ObjectInputStream in,
                       final MatchRoom matchRoom) {
         chat.setModel(chatModel);
@@ -144,6 +150,9 @@ public class ClientView extends JFrame {
         setTimer(Game.PLACEMENT_TIMEOUT / 1000);
     }
 
+    /**
+     * Stops the timer.
+     */
     public void stopTimer() {
         if (timer != null) {
             timer.stop();
@@ -151,11 +160,18 @@ public class ClientView extends JFrame {
         timerView.setText("");
     }
 
+    /**
+     * Sets the message.
+     * @param s message.
+     */
     public void setMessage(String s) {
         message.setText(s);
     }
 
-
+    /**
+     * Makes a new timer for specified number of seconds.
+     * @param seconds number of seconds.
+     */
     public void setTimer(final int seconds) {
         timer = new Timer(1000, null);
         timer.addActionListener(new ActionListener() {
@@ -174,6 +190,9 @@ public class ClientView extends JFrame {
         timer.start();
     }
 
+    /**
+     * Sends chat message.
+     */
     public void sendChatMessage() {
         try {
             String text = inputField.getText();
@@ -185,6 +204,10 @@ public class ClientView extends JFrame {
         }
     }
 
+    /**
+     * Adds chat message.
+     * @param text message text.
+     */
     public void addChatMessage(String text) {
         JScrollBar bar = chatScrollPane.getVerticalScrollBar();
         chatModel.addElement("<html>" + text + "</html>" + "\n");
@@ -199,10 +222,17 @@ public class ClientView extends JFrame {
         rotateButton.setEnabled(state);
     }
 
+    /**
+     * Returns client model.
+     * @return returns model.
+     */
     public Client getModel() {
         return this.model;
     }
 
+    /**
+     * Displays action after the game has ended.
+     */
     public void gameOverAction() {
         Object[] options = {"Back to lobby", "Quit"};
         int n = JOptionPane.showOptionDialog(this,

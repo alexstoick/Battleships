@@ -9,15 +9,32 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Created by user on 13.10.2014.
+ * Class for explosion animation.
  */
 public class ExplosionAnimation {
 
+    /**
+     * Cell to be animated.
+     */
     private SquareView cell;
+    /**
+     * Board to be repainted.
+     */
     private BoardView board;
+    /**
+     * Explosion images.
+     */
     private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+    /**
+     * Index of current explosion image in the list.
+     */
     private int currentIndex;
 
+    /**
+     * Constructs animation.
+     * @param cell cell where the explosion should be drawn.
+     * @param board BoardView to be repainted.
+     */
     public ExplosionAnimation(SquareView cell, BoardView board) {
         File[] icons = new File("resources/animation").listFiles();
         for (File file : icons) {
@@ -38,6 +55,9 @@ public class ExplosionAnimation {
         board.repaint();
     }
 
+    /**
+     * Starts animating the explosion.
+     */
     public void start() {
         final Timer t = new Timer(10, null);
         t.addActionListener(new ActionListener() {

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.File;
 
 /**
- * Created by user on 13.10.2014.
+ * Class for view of the square.
  */
 public class SquareView implements ChangeListener {
 
@@ -29,7 +29,16 @@ public class SquareView implements ChangeListener {
     private BoardView boardView;
     private Square squareModel;
 
-
+    /**
+     * Constructs SquareView.
+     *
+     * @param x           x coordinate of the square.
+     * @param y           y coordinate of the square.
+     * @param width       width of the square.
+     * @param height      height of the square.
+     * @param boardView   parent board view.
+     * @param squareModel model of the square.
+     */
     public SquareView(int x, int y, int width, int height, BoardView boardView,
                       Square squareModel) {
         this.x = x;
@@ -50,10 +59,21 @@ public class SquareView implements ChangeListener {
         }
     }
 
+    /**
+     * Returns current state of the square (One of the following: SquareView.HIT,
+     * SquareView.MISS, SquareView.CLEAR, SquareView.HOVER).
+     *
+     * @return state of the square.
+     */
     public int getState() {
         return state;
     }
 
+    /**
+     * Sets the state of the square.
+     *
+     * @param state state of the square.
+     */
     public void setState(int state) {
         if (state < 0 || state > 3) {
             throw new IllegalArgumentException("Invalid state");
@@ -61,22 +81,47 @@ public class SquareView implements ChangeListener {
         this.state = state;
     }
 
+    /**
+     * Sets explosion image to be drawn.
+     *
+     * @param explosionImage explosion image.
+     */
     public void setExplosionImage(Image explosionImage) {
         this.explosionImage = explosionImage;
     }
 
+    /**
+     * Returns x coordinate of the square.
+     *
+     * @return x coordinate in the BoardView.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Returns y coordinate of the square.
+     *
+     * @return y coordinate of the square in the BoardView.
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Checks if explosion animation is in progress.
+     *
+     * @return true if animation is in progress, false otherwise
+     */
     public boolean animated() {
         return explosionImage != null;
     }
 
+    /**
+     * Paints background of the square.
+     *
+     * @param g Graphics.
+     */
     public void paint(Graphics g) {
         g.drawImage(water, x, y, width, height, null);
         g.setColor(Color.BLACK);
@@ -91,6 +136,11 @@ public class SquareView implements ChangeListener {
         }
     }
 
+    /**
+     * Draws cross representing a hit.
+     *
+     * @param g Graphics.
+     */
     public void drawCross(Graphics g) {
         final int padding = 5;
         g.setColor(Color.RED);
@@ -100,6 +150,11 @@ public class SquareView implements ChangeListener {
                 - padding);
     }
 
+    /**
+     * Draws current explosion image.
+     *
+     * @param g Graphics.
+     */
     public void drawExplosion(Graphics g) {
         if (explosionImage != null) {
             g.drawImage(explosionImage, x, y, width, height, null);
@@ -110,10 +165,10 @@ public class SquareView implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         switch (squareModel.getState()) {
             case CONTAINS_SHIP:
-                this.state = HIT;
+                state = HIT;
                 break;
             case NO_SHIP:
-                this.state = MISS;
+                state = MISS;
         }
 
         if (!boardView.getModel().isOwnBoard()) {
