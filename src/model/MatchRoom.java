@@ -275,7 +275,7 @@ public class MatchRoom extends Thread {
      *
      * @param array String array to be sent to server
      */
-    public void sendStringArray(String[] array) {
+    public synchronized void sendStringArray(String[] array) {
         try {
             out.reset();
             out.writeObject(new ClientMessage(array));
