@@ -321,8 +321,10 @@ public class BoardView extends JPanel implements PropertyChangeListener {
                 }
             }
         }
-        for (ShipView s : shipViews) {
-            s.paint(g);
+        synchronized(this) {
+            for (ShipView s : shipViews) {
+                s.paint(g);
+            }
         }
         for (SquareView square : hit) {
             if (square.animated()) {
