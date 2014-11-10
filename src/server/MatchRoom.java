@@ -113,10 +113,10 @@ public class MatchRoom {
      */
     private synchronized void acceptRequest(Player player, String key) {
         Player opponent = waitingPlayerList.get(key);
-        if (opponent != null &&
+        if (opponent != null && opponent.getRequestedGameKey() != null &&
                 opponent.getRequestedGameKey().equals(player.getOwnKey())) {
-            waitingPlayerList.remove(key);
-            waitingPlayerList.values().remove(player);
+            System.out.println(waitingPlayerList.remove(key));
+            System.out.println(waitingPlayerList.remove(player.getOwnKey()));
             opponent.requestAccepted(player);
             new Game(opponent, player);
             sendMatchRoomList();
