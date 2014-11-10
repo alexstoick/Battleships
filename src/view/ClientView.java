@@ -6,10 +6,7 @@ import server.Game;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +24,6 @@ public class ClientView extends JFrame {
     private JTextField inputField = new JTextField();
     private JButton rotateButton = new JButton("Rotate");
     private JButton saveShipState = new JButton("Ready");
-    private JScrollPane chatScrollPane;
     private StyledDocument chatDocument;
     private Client model;
     private MatchRoom matchRoom;
@@ -45,6 +41,8 @@ public class ClientView extends JFrame {
                       final MatchRoom matchRoom) {
         JTextPane chat = new JTextPane();
         chatDocument = chat.getStyledDocument();
+        ((DefaultCaret) chat.getCaret()).setUpdatePolicy(
+                DefaultCaret.ALWAYS_UPDATE);
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 5));
         rootPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +55,7 @@ public class ClientView extends JFrame {
         this.matchRoom = matchRoom;
 
         JPanel controlPanel = new JPanel(new BorderLayout(10, 5));
-        chatScrollPane = new JScrollPane(chat);
+        JScrollPane chatScrollPane = new JScrollPane(chat);
 
         controlPanel.add(chatScrollPane, BorderLayout.CENTER);
 
@@ -213,18 +211,15 @@ public class ClientView extends JFrame {
      * @param text message text.
      */
     public void addChatMessage(String text) {
-        JScrollBar bar = chatScrollPane.getVerticalScrollBar();
         try {
             chatDocument.insertString(chatDocument.getLength(), text + "\n",
                     null);
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
-        bar.setValue(bar.getMaximum());
     }
 
     public void addChatMessage(String sender, String text) {
-        JScrollBar bar = chatScrollPane.getVerticalScrollBar();
         try {
             SimpleAttributeSet nameStyle = new SimpleAttributeSet();
             StyleConstants.setBold(nameStyle, true);
@@ -238,7 +233,6 @@ public class ClientView extends JFrame {
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
-        bar.setValue(bar.getMaximum());
     }
 
     public void setSendShipState(boolean state) {
