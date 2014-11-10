@@ -117,7 +117,7 @@ public class Player extends Thread {
             }
             matchRoom.removePlayer(this);
             System.out.println(socket.getRemoteSocketAddress().toString() +
-                    " connected");
+                    " disconnected");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
