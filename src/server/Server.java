@@ -51,7 +51,8 @@ public class Server {
             }
         }
         if (invalidOptions) {
-            System.out.println("Syntax: <port> <multi move enabled>");
+            System.out.println("Syntax: <port> " +
+                    "<multi move enabled: true/false>");
             System.exit(-1);
         }
         new Server(port);
