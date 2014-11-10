@@ -277,6 +277,7 @@ public class MatchRoom extends Thread {
      */
     public void sendStringArray(String[] array) {
         try {
+            out.reset();
             out.writeObject(new ClientMessage(array));
             out.flush();
         } catch (IOException e) {
