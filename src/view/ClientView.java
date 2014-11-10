@@ -6,6 +6,10 @@ import server.Game;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +28,7 @@ public class ClientView extends JFrame {
     private JButton rotateButton = new JButton("Rotate");
     private JButton saveShipState = new JButton("Ready");
     private JScrollPane chatScrollPane;
-    private JList<String> chat = new JList<>();
-    private DefaultListModel<String> chatModel = new DefaultListModel<>();
+    private StyledDocument chatDocument;
     private Client model;
     private MatchRoom matchRoom;
     private JLabel timerView;
@@ -40,7 +43,8 @@ public class ClientView extends JFrame {
      */
     public ClientView(ObjectOutputStream out, final ObjectInputStream in,
                       final MatchRoom matchRoom) {
-        chat.setModel(chatModel);
+        JTextPane chat = new JTextPane();
+        chatDocument = chat.getStyledDocument();
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 5));
         rootPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -197,7 +201,7 @@ public class ClientView extends JFrame {
         try {
             String text = inputField.getText();
             model.sendChatMessage(text);
-            addChatMessage("<b>" + matchRoom.getOwnName() + ":</b> " + text);
+            addChatMessage(matchRoom.getOwnName(), text);
             inputField.setText("");
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -210,7 +214,30 @@ public class ClientView extends JFrame {
      */
     public void addChatMessage(String text) {
         JScrollBar bar = chatScrollPane.getVerticalScrollBar();
-        chatModel.addElement("<html>" + text + "</html>" + "\n");
+        try {
+            chatDocument.insertString(chatDocument.getLength(), text + "\n",
+                    null);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        bar.setValue(bar.getMaximum());
+    }
+
+    public void addChatMessage(String sender, String text) {
+        JScrollBar bar = chatScrollPane.getVerticalScrollBar();
+        try {
+            SimpleAttributeSet nameStyle = new SimpleAttributeSet();
+            StyleConstants.setBold(nameStyle, true);
+            chatDocument.insertString(chatDocument.getLength(), sender + ": ",
+                    nameStyle);
+            SimpleAttributeSet messageStyle = new SimpleAttributeSet();
+            StyleConstants.setBold(messageStyle, false);
+            StyleConstants.setItalic(messageStyle, true);
+            chatDocument.insertString(chatDocument.getLength(), text + "\n",
+                    messageStyle);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
         bar.setValue(bar.getMaximum());
     }
 
