@@ -219,6 +219,11 @@ public class ClientView extends JFrame {
         }
     }
 
+    /**
+     * Adds chat message from spcified sender.
+     * @param sender sender name.
+     * @param text message text.
+     */
     public void addChatMessage(String sender, String text) {
         try {
             SimpleAttributeSet nameStyle = new SimpleAttributeSet();
