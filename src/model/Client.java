@@ -179,7 +179,7 @@ public class Client extends Thread {
             }
         } else if (input instanceof ChatMessage) {
             ChatMessage chatMessage = (ChatMessage) input;
-            view.addChatMessage("<b>" + opponentName + ":</b> " + chatMessage.getMessage());
+            view.addChatMessage(opponentName, chatMessage.getMessage());
         }
     }
 
