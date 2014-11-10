@@ -16,7 +16,7 @@
 ./src/server/Player.java
 ./src/server/MatchRoom.java
 ./src/server/messages/ChatMessage.java
-./src/server/messages/ClientMessages.java
+./src/server/messages/ClientMessage.java
 ./src/server/messages/MoveMessage.java
 ./src/server/messages/MatchRoomListMessage.java
 ./src/server/messages/NotificationMessage.java
