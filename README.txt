@@ -20,3 +20,9 @@ Configuration
 -------------
 
 You may change the hostname and port that the server binds to and the client connects to by editing config.properties.
+
+The server takes two optional arguments:
+
+        java -classpath src server.Server <port> <multi move enabled: true/false>
+
+The port is the port number the server should listen on. Multi move mode is where you get another turn if you hit a ship.
