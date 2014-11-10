@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
@@ -111,17 +112,22 @@ public class Player extends Thread {
                 }
             }
         } catch (IOException e) {
-            if (game != null) {
-                leaveGame();
-            } else {
-                matchRoom.removeWaitingPlayer(this);
-            }
-            matchRoom.removePlayer(this);
-            System.out.println(socket.getRemoteSocketAddress().toString() +
-                    " disconnected");
+            removePlayer();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void removePlayer() {
+        if (game != null) {
+            leaveGame();
+        } else {
+            matchRoom.removeWaitingPlayer(this);
+        }
+        rejectAll();
+        matchRoom.removePlayer(this);
+        System.out.println(socket.getRemoteSocketAddress().toString() +
+                " disconnected");
     }
 
     /**
@@ -152,7 +158,7 @@ public class Player extends Thread {
             out.writeObject(object);
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            removePlayer();
         }
     }
 
@@ -171,7 +177,7 @@ public class Player extends Thread {
             out.writeObject(nm);
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            removePlayer();
         }
     }
 
