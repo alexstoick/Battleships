@@ -1,4 +1,4 @@
-package test.server;
+package test.deprecated.server;
 
 import model.Board;
 import model.Ship;
