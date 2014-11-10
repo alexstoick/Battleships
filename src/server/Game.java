@@ -160,7 +160,7 @@ public class Game {
                 turn.writeNotification(NotificationMessage.GAME_WIN);
                 opponent.writeNotification(NotificationMessage.GAME_LOSE);
                 turn = null;
-            } else if (hit) {
+            } else if (Server.multiMove && hit) {
                 setTurn(player); // player gets another go if hit
             } else {
                 setTurn(getOpponent(player));
