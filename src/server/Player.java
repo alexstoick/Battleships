@@ -2,6 +2,7 @@ package server;
 
 import model.Board;
 import server.messages.ChatMessage;
+import server.messages.ClientMessage;
 import server.messages.MoveMessage;
 import server.messages.NotificationMessage;
 
@@ -60,8 +61,8 @@ public class Player extends Thread {
             Object input;
 
             while ((input = in.readObject()) != null) {
-                if (input instanceof String[]) {
-                    String[] array = (String[]) input;
+                if (input instanceof ClientMessage) {
+                    String[] array = ((ClientMessage) input).getMessage();
                     int length = array.length;
 
                     if (length > 0) {
