@@ -14,6 +14,9 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * View for match room.
+ */
 public class MatchRoomView extends JFrame {
 
     private DefaultListModel<RoomPlayer> playersListModel = new DefaultListModel<>();
@@ -23,6 +26,9 @@ public class MatchRoomView extends JFrame {
     private JButton sendInvite;
     private JLabel playersNumber;
 
+    /**
+     * Constructs MatchRoomView.
+     */
     public MatchRoomView() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -75,6 +81,9 @@ public class MatchRoomView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Mouse listener.
+     */
     private class PlayersListMouseAdapter extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -91,6 +100,9 @@ public class MatchRoomView extends JFrame {
 
     }
 
+    /**
+     * Input dialog for username.
+     */
     private void askForName() {
         String message = "Please choose a nickname.";
         while (true) {
@@ -121,6 +133,11 @@ public class MatchRoomView extends JFrame {
         }
     }
 
+    /**
+     * Checks if specified name is already in the list.
+     * @param name name.
+     * @return true if exists, false otherwise.
+     */
     public boolean playerNameExists(String name) {
         boolean exists = false;
         for (Map.Entry<String, String> entry : matchRoomList.entrySet()) {
@@ -131,6 +148,10 @@ public class MatchRoomView extends JFrame {
         return exists;
     }
 
+    /**
+     * Updates list of players.
+     * @param matchRoomList list of players.
+     */
     public synchronized void updateMatchRoomList(
             HashMap<String, String> matchRoomList) {
         this.matchRoomList = matchRoomList;
@@ -153,11 +174,19 @@ public class MatchRoomView extends JFrame {
         new MatchRoomView();
     }
 
+    /**
+     * Room player.
+     */
     private class RoomPlayer {
 
         private String key;
         private String name;
 
+        /**
+         * Constructs RoomPlayer.
+         * @param key key.
+         * @param name username.
+         */
         public RoomPlayer(String key, String name) {
             this.key = key;
             this.name = name;
@@ -167,16 +196,27 @@ public class MatchRoomView extends JFrame {
             return this.name;
         }
 
+        /**
+         * Returns key.
+         * @return key.
+         */
         public String getKey() {
             return this.key;
         }
 
+        /**
+         * Returns username.
+         * @return username.
+         */
         public String getName() {
             return this.name;
         }
 
     }
 
+    /**
+     * Displays error dialog with message that config file is invalid.
+     */
     public void showConfigFileError() {
         String message = "Make sure you have a config.properties file\n" +
                 "in the current working directory containing:\n\n" +
@@ -188,6 +228,10 @@ public class MatchRoomView extends JFrame {
         System.exit(-1);
     }
 
+    /**
+     * Displays connection error dialog.
+     * @return button pressed.
+     */
     public int showInitialConnectionError() {
         String message = "Could not connect to server, did you set the " +
                 "correct hostname and port in config.properties?";
@@ -197,6 +241,9 @@ public class MatchRoomView extends JFrame {
                 JOptionPane.ERROR_MESSAGE, null, options, options[1]);
     }
 
+    /**
+     * Displays connection lost dialog.
+     */
     public void showLostConnectionError() {
         JOptionPane.showMessageDialog(this,
                 "Lost connection to server.", "Connection Error",
