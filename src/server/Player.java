@@ -142,20 +142,6 @@ public class Player extends Thread {
     }
 
     /**
-     * Writes a String to the player, and flushes it.
-     *
-     * @param message the message to be sent
-     */
-    public void writeMessage(String message) {
-        try {
-            out.writeObject(message);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Writes an Object to the player, and flushes it.
      *
      * @param object the Object to be sent
