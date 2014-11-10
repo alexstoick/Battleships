@@ -117,7 +117,7 @@ public class Player extends Thread {
             }
             matchRoom.removePlayer(this);
             System.out.println(socket.getRemoteSocketAddress().toString() +
-                    " connected");
+                    " disconnected");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -139,20 +139,6 @@ public class Player extends Thread {
      */
     public String getPlayerName() {
         return name;
-    }
-
-    /**
-     * Writes a String to the player, and flushes it.
-     *
-     * @param message the message to be sent
-     */
-    public void writeMessage(String message) {
-        try {
-            out.writeObject(message);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

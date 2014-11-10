@@ -1,4 +1,4 @@
-package test.server;
+package test.deprecated.server;
 
 import model.Board;
 import server.messages.MoveMessage;
@@ -10,6 +10,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * A test client that was used to test sending moves between each other, to test
+ * if the logic of the game was working correctly. Has not been updated to work
+ * on the updated match room system.
+ */
 public class Client {
 
     public static void main(String[] args) {

@@ -72,7 +72,7 @@ public class MoveResponseMessage implements Serializable {
      * if the move did not result in a ship sinking.
      * @return the ship that was sunk, if any
      */
-    public Ship shipSank() {
+    public Ship shipSunk() {
         return this.shipSunk;
     }
 

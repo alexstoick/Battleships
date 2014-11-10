@@ -14,6 +14,8 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
 
+            System.out.println("Listening on port " + port);
+
             MatchRoom matchRoom = new MatchRoom();
 
             while (true) {
