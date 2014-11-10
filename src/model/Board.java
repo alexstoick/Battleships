@@ -252,7 +252,7 @@ public class Board implements Serializable {
      *            The {@link MoveResponseMessage} being applied to the Board
      */
     public void applyMove(MoveResponseMessage move) {
-        Ship ship = move.shipSank();
+        Ship ship = move.shipSunk();
         if (ship != null) {
             ship.sink();
             if (!ownBoard) {
