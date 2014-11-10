@@ -63,7 +63,11 @@ public class Square implements Serializable {
      */
     public void setShip(Ship ship) {
         this.ship = ship;
-        this.state = State.CONTAINS_SHIP;
+        if (ship != null) {
+            this.state = State.CONTAINS_SHIP;
+        } else {
+            this.state = State.NO_SHIP;
+        }
     }
 
     /**
