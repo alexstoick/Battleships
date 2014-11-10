@@ -19,7 +19,7 @@ Instructions for compiling and running
 Configuration
 -------------
 
-You may change the hostname and port that the server binds to and the client connects to by editing config.properties.
+You may change the hostname and port that the client connects to by editing config.properties.
 
 The server takes two optional arguments:
 
