@@ -265,8 +265,15 @@ public class Board implements Serializable {
                         shipSquare.getY());
                 boardSquare.update(true, ship);
             }
-            // TODO: Fix me
-            client.getView().addChatMessage("SUNK SHIP" + ship.toString());
+            String sunkMessage;
+            if (ownBoard) {
+                sunkMessage = "Your opponent sunk your " +
+                        ship.getType().getName() + "!";
+            } else {
+                sunkMessage = "You sunk your opponent's " +
+                        ship.getType().getName() + "!";
+            }
+            client.getView().addChatMessage(sunkMessage);
         } else {
             Square square = getSquare(move.getX(), move.getY());
             square.update(move.isHit(), null);
