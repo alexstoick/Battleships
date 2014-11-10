@@ -1,5 +1,6 @@
 package model;
 
+import server.messages.ClientMessage;
 import server.messages.MatchRoomListMessage;
 import server.messages.NotificationMessage;
 import view.ClientView;
@@ -112,7 +113,7 @@ public class MatchRoom extends Thread {
      */
     public void sendJoinFriend(String key, final String name) {
         try {
-            out.writeObject(new String[]{"join", "join", key});
+            sendStringArray(new String[]{"join", "join", key});
             out.flush();
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -276,7 +277,7 @@ public class MatchRoom extends Thread {
      */
     public void sendStringArray(String[] array) {
         try {
-            out.writeObject(array);
+            out.writeObject(new ClientMessage(array));
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
